@@ -1,44 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:46:32 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/23 15:47:50 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/10/09 17:52:17 by ldrieske          #+#    #+#             */
+/*   Updated: 2022/11/17 15:14:28 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+/*
+ * ft_tolower
+ *
+ * Change the value of a to his lowercase equivalent
+*/
 
-int stack[256];
-int count = 0;
-
-void push(int x)
+int	ft_tolower(int a)
 {
-	stack[count] = x;
-	count++;
-}
-
-int pop()
-{
-	int res =stack[count - 1];
-	count--;
-	return res;
-}
-
-#include <stdio.h>
-int	main(int ac, char *av[])
-{
-	push(1);
-	push(2);
-	push(3);
-	push(5);
-
-	int i;
-	for (i = 0; i < 4; i++)
-	{
-		printf("%d", pop());
-	}
+	if (a >= 'A' && a <= 'Z')
+		return (a += 32);
+	return (a);
 }

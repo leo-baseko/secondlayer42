@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:46:32 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/23 15:47:50 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/11/23 13:31:20 by ldrieske          #+#    #+#             */
+/*   Updated: 2023/01/07 15:54:04 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ft_printf.h"
 
-int stack[256];
-int count = 0;
-
-void push(int x)
+int	ft_putstr(const char *str)
 {
-	stack[count] = x;
-	count++;
-}
+	int	i;
 
-int pop()
-{
-	int res =stack[count - 1];
-	count--;
-	return res;
-}
-
-#include <stdio.h>
-int	main(int ac, char *av[])
-{
-	push(1);
-	push(2);
-	push(3);
-	push(5);
-
-	int i;
-	for (i = 0; i < 4; i++)
-	{
-		printf("%d", pop());
+	i = 0;
+	if (!str)
+	{	
+		write(1, "(null)", 6);
+		return (6);
 	}
+	while (str[i])
+		write(1, &str[i++], 1);
+	return (i);
+}
+
+int	ft_putchar(int c)
+{
+	write(1, &c, 1);
+	return (1);
 }

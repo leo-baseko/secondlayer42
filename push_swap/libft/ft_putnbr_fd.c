@@ -1,44 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:46:32 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/23 15:47:50 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/11/08 12:36:42 by ldrieske          #+#    #+#             */
+/*   Updated: 2022/11/18 14:11:32 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int stack[256];
-int count = 0;
+/*
+ * ft_putnbr_fd
+ * 
+ * int n : the number
+ * int fd : the file
+ * 
+ * Writes the Integer number in the fd file
+*/
 
-void push(int x)
+void	ft_putnbr_fd(int n, int fd)
 {
-	stack[count] = x;
-	count++;
-}
+	long int	nbr;
 
-int pop()
-{
-	int res =stack[count - 1];
-	count--;
-	return res;
-}
-
-#include <stdio.h>
-int	main(int ac, char *av[])
-{
-	push(1);
-	push(2);
-	push(3);
-	push(5);
-
-	int i;
-	for (i = 0; i < 4; i++)
+	nbr = n;
+	if (nbr < 0)
 	{
-		printf("%d", pop());
+		nbr *= (-1);
+		write(fd, "-", 1);
 	}
+	if (nbr > 9)
+	{
+		ft_putnbr_fd((nbr / 10), fd);
+		ft_putnbr_fd((nbr % 10), fd);
+	}
+	else
+		write(fd, &"0123456789"[nbr], 1);
 }

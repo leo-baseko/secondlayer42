@@ -1,44 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:46:32 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/23 15:47:50 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/10/06 23:10:28 by ldrieske          #+#    #+#             */
+/*   Updated: 2022/11/17 12:44:02 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int stack[256];
-int count = 0;
+/*
+ * ft_strncmp
+ *
+ * Gives the n bytes difference between s1 and s2 Strings
+ * Returns 0 is there's no difference
+*/
 
-void push(int x)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	stack[count] = x;
-	count++;
-}
-
-int pop()
-{
-	int res =stack[count - 1];
-	count--;
-	return res;
-}
-
-#include <stdio.h>
-int	main(int ac, char *av[])
-{
-	push(1);
-	push(2);
-	push(3);
-	push(5);
-
-	int i;
-	for (i = 0; i < 4; i++)
+	while (*s1 != '\0' && *s2 != '\0' && n > 0)
 	{
-		printf("%d", pop());
+		if (*s1 != *s2)
+			break ;
+		s1++;
+		s2++;
+		n--;
 	}
+	if (n == 0)
+		return (0);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

@@ -1,44 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:46:32 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/23 15:47:50 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/11/07 20:13:26 by ldrieske          #+#    #+#             */
+/*   Updated: 2022/11/08 12:10:50 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int stack[256];
-int count = 0;
+/*
+ * ft_putchar_fd 
+ * 
+ * char c : the character to output
+ * int fd : the file descriptor on which to write
+ * 
+ * Writes the c character in the file descriptor
+*/
 
-void push(int x)
+void	ft_putchar_fd(char c, int fd)
 {
-	stack[count] = x;
-	count++;
-}
-
-int pop()
-{
-	int res =stack[count - 1];
-	count--;
-	return res;
-}
-
-#include <stdio.h>
-int	main(int ac, char *av[])
-{
-	push(1);
-	push(2);
-	push(3);
-	push(5);
-
-	int i;
-	for (i = 0; i < 4; i++)
-	{
-		printf("%d", pop());
-	}
+	write(fd, &c, 1);
 }

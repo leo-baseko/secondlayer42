@@ -1,44 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:46:32 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/23 15:47:50 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/11/21 14:41:33 by ldrieske          #+#    #+#             */
+/*   Updated: 2023/03/21 10:53:58 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int stack[256];
-int count = 0;
+# include <unistd.h>
+# include <stdarg.h>
 
-void push(int x)
-{
-	stack[count] = x;
-	count++;
-}
+int		ft_printf(const char *format, ...);
+int		ft_putnbr_base(unsigned int nbr, char *base, int len);
+int		ft_putptr_base(unsigned long long ptr, char *base, int len);
+int		ft_pointer_tohex(unsigned long long ptr);
+int		ft_putchar(int c);
+int		ft_putstr(const char *str);
 
-int pop()
-{
-	int res =stack[count - 1];
-	count--;
-	return res;
-}
-
-#include <stdio.h>
-int	main(int ac, char *av[])
-{
-	push(1);
-	push(2);
-	push(3);
-	push(5);
-
-	int i;
-	for (i = 0; i < 4; i++)
-	{
-		printf("%d", pop());
-	}
-}
+#endif

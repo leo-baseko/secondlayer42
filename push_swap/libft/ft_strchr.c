@@ -1,44 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:46:32 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/23 15:47:50 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/10/06 16:31:03 by ldrieske          #+#    #+#             */
+/*   Updated: 2022/11/17 15:12:32 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+/*
+ * ft_strchr
+ *
+ * Returns a pointer to the first occurence of the character c in
+ * 	the s String
+*/
 
-int stack[256];
-int count = 0;
-
-void push(int x)
+char	*ft_strchr(const char *s, int c)
 {
-	stack[count] = x;
-	count++;
-}
+	int	i;
 
-int pop()
-{
-	int res =stack[count - 1];
-	count--;
-	return res;
-}
-
-#include <stdio.h>
-int	main(int ac, char *av[])
-{
-	push(1);
-	push(2);
-	push(3);
-	push(5);
-
-	int i;
-	for (i = 0; i < 4; i++)
+	i = -1;
+	while (s[++i] != (unsigned char)c)
 	{
-		printf("%d", pop());
+		if (s[i] == '\0')
+			return ((char *) 0);
 	}
+	return ((char *) &s[i]);
 }
