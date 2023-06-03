@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 19:59:42 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/03 20:02:04 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:18:54 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@
 # include <stdio.h>
 # include <stdarg.h>
 
-typedef struct StackNode {
+typedef struct s_stacknode {
 	int					data;
-	struct StackNode	*next;
-}	StackNode;
+	struct s_stacknode	*next;
+}	t_stacknode;
+
+void	swap(t_stacknode **stack);
+void	rotate(t_stacknode **stack);
+void	reverse_rotate(t_stacknode **stack);
 
 #endif

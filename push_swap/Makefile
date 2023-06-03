@@ -1,6 +1,7 @@
 NAME = 		push_swap
 
-SRC = 		main.c
+SRC = 		main.c \
+			operations/swap_rotate_reverse.c
 
 OBJ = 		${SRC:.c=.o}
 

@@ -6,113 +6,148 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:38:07 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/03 20:19:03 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:19:32 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-struct StackNode	*newNode(int data)
+/*
+ * newnode 
+ * 
+ * int data :
+ * return 
+*/
+struct s_stacknode	*newnode(int data)
 {
-	struct StackNode	*stackNode;
+	struct s_stacknode	*stacknode;
 
-	stackNode = (struct StackNode*)malloc(sizeof(struct StackNode));
-	stackNode->data = data;
-	stackNode->next = NULL;
-	return (stackNode);
+	stacknode = malloc(sizeof(struct s_stacknode));
+	stacknode->data = data;
+	stacknode->next = NULL;
+	return (stacknode);
 }
 
-int	isEmpty(struct StackNode *root)
+/*
+ * isempty
+ * 
+ * StackNode *root : 
+*/
+int	isempty(t_stacknode *root)
 {
 	return (!root);
 }
 
-void	push(struct StackNode **root, int data)
+/*
+ * push
+ * 
+ * StackNode **root : 
+ * int data : 
+*/
+void	push(t_stacknode **root, int data)
 {
-	struct StackNode* stackNode = newNode(data);
-	stackNode->next = *root;
-	*root = stackNode;
+	struct s_stacknode	*stacknode;
+
+	stacknode = newnode(data);
+	stacknode->next = *root;
+	*root = stacknode;
 	printf("%d pushed to stack\n", data);
 }
 
-int	pop(struct StackNode **root)
+/*
+ * pop
+ * 
+ * StackNode **root : 
+*/
+int	pop(t_stacknode **root)
 {
-	if (isEmpty(*root))
-		return INT_MIN;
-	struct StackNode* temp = *root;
-	*root = (*root)->next;
-	int popped = temp->data;
-	free(temp);
+	struct s_stacknode	*temp;
+	int					popped;
 
+	if (isempty(*root))
+		return (INT_MIN);
+	temp = *root;
+	*root = (*root)->next;
+	popped = temp->data;
+	free(temp);
 	return (popped);
 }
 
-int	peek(struct StackNode *root)
+/*
+ * peek
+ * 
+ * StackNode *root : 
+*/
+int	peek(t_stacknode *root)
 {
-	if (isEmpty(root))
-		return INT_MIN;
+	if (isempty(root))
+		return (INT_MIN);
 	return (root->data);
 }
 
 /*
- * swap les deux premiers elements de la stack a
- * ne fait rien si stack est vide
+ * freestack
+ * 
+ * StackNode **stack :
 */
-void	swap_a(struct StackNode **stack)
+void	freestack(t_stacknode **stack)
 {
-	if ((*stack) == NULL || (*stack)->next == NULL)
-		return;  // Pas assez d'éléments dans la pile pour effectuer un échange
+	t_stacknode	*currentnode;
+	t_stacknode	*nextnode;
 
-	ft_printf("sa\n");
-	StackNode *firstNode = (*stack);
-	StackNode *secondNode = (*stack)->next;
-
-	firstNode->next = secondNode->next;
-	secondNode->next = firstNode;
-	(*stack) = secondNode;
-}
-
-void	freeStack(StackNode **stack)
-{
-	StackNode *currentNode;
-
-	currentNode = *stack;
-	while (currentNode != NULL) {
-		StackNode* nextNode = currentNode->next;
-		free(currentNode);
-		currentNode = nextNode;
+	currentnode = *stack;
+	while (currentnode != NULL)
+	{
+		nextnode = currentnode->next;
+		free(currentnode);
+		currentnode = nextnode;
 	}
 	*stack = NULL;
 }
 
-void	printStackData(const StackNode *stack)
+/*
+ * printstackdata
+ * 
+ * StackNode *stack : 
+*/
+void	printstackdata(const t_stacknode *stack)
 {
-	const StackNode* currentNode = stack;
-	while (currentNode != NULL)
+	const t_stacknode	*currentnode;
+
+	currentnode = stack;
+	while (currentnode != NULL)
 	{
-		ft_printf("%d ", currentNode->data);
-		currentNode = currentNode->next;
+		ft_printf("%d ", currentnode->data);
+		currentnode = currentnode->next;
 	}
 	ft_printf("\n");
 }
 
-int	main()
+int	main(void)
 {
-	StackNode *stack;
-	
+	t_stacknode	*stack;
+
 	stack = NULL;
-	push(&stack, 5);
-	push(&stack, 7);
-	push(&stack, 9);
-	push(&stack, 4);
-	push(&stack, 6);
+	push(&stack, 1);
+	push(&stack, 2);
 	push(&stack, 3);
+	push(&stack, 4);
+	push(&stack, 5);
+	push(&stack, 6);
 	// Lire les données de la liste chaînée
-	ft_printf("Donnees de la liste chainee : ");
-	printStackData(stack);
-	swap_a(&stack);
-	printStackData(stack);
+	ft_printf("Données de la liste chainée : ");
+	printstackdata(stack);
+	swap(&stack);
+	printstackdata(stack);
+	rotate(&stack);
+	printstackdata(stack);
+	rotate(&stack);
+	printstackdata(stack);
+	swap(&stack);
+	printstackdata(stack);
+	reverse_rotate(&stack);
+	printstackdata(stack);
 	// Libérer la mémoire allouée pour la liste chaînée
-	freeStack(&stack);
+	freestack(&stack);
 	return (0);
 }
