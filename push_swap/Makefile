@@ -1,32 +1,62 @@
-NAME =			push_swap
+NAME = 		push_swap
 
-RM =			rm -rf
-CC =			gcc
-FLAGS =			-Wall -Werror -Wextra
+SRC = 		main.c
 
-INCLUDE =		push_swap.h \
+OBJ = 		${SRC:.c=.o}
 
-SRC =			push_swap.c \
+CC = 		gcc
 
-SRCS =			$(SRC)
-OBJS =			$(addsuffix .o, $(basename $(SRC)))
+CFLAGS = 	-Wall -Wextra -Werror -fsanitize=address -g
 
-INCS =			$(addprefix -I, $(INCLUDE))
+LIB = 		libft/libft.a \
+			libftprintf/libftprintf.a
 
-all :			$(NAME)
+REMOVE = 	rm -f
 
-$(NAME) :		$(OBJS)
-					ar rcs $@ $^
+COMPILE = 	gcc $(CFLAGS) -o $(NAME) -I ./libft -L. $(LIB)
 
-clean :
-				$(RM) $(OBJS)
 
-fclean :		clean
-					$(RM) $(NAME)
+all: 		$(NAME)
 
-re :			fclean all
+$(NAME): 	$(OBJ)
+			make -C libft
+			make -C libftprintf
+			@$(COMPILE) $(OBJ) -L. $(LIB)
 
-.c.o:			$(SRCS)
-					$(CC) -c -o $@ $< $(FLAGS)
+%.o: 		%.c
+			$(CC) -c $(CFLAGS) -I./libft -I./libftprintf -o $@ $<
 
-.PHONY: all clean fclean re bonus
+clean:
+			$(REMOVE) $(OBJ)
+			make -C ./libft clean
+			make -C ./libftprintf clean
+
+fclean: 	clean
+			$(REMOVE) $(NAME)
+			make -C ./libft fclean
+			make -C ./libftprintf fclean
+
+re: 		fclean all
+
+kirby :
+			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣴⣶⣶⣶⣶⣶⣶⣶⣶⣶⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⡾⠿⠛⠋⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠿⢷⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⠟⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⢿⣦⣄⢀⣀⣠⣤⣤⣤⣤⣄⣀⠀⠀⠀⠀⠀"
+			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣿⣟⠛⠛⠋⠙⠛⠛⠛⠿⣷⣄⠀⠀"
+			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣾⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⢠⡶⠶⢦⡀⠀⠀⠈⠻⢷⣄⠀⠀⠀⠀⠀⠀⠈⢻⣷⠀"
+			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡏⠀⠈⢳⡄⠀⠀⠀⠀⠀⢸⡇⠀⠀⠻⡄⠀⠀⠀⠀⠻⣧⡀⠀⠀⠀⠀⠀⠀⣿⣇"
+			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣇⠀⠀⠀⢿⡀⠀⠀⠀⠀⠸⣷⡀⠀⠀⣿⡄⠀⠀⠀⠀⠈⢻⣄⠀⠀⠀⠀⠀⣹⣿"
+			@echo "⠀⠀⠀⠀⠀⠀⠀⢀⣼⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡆⠀⠀⣸⣷⠀⠀⠀⠀⠀⢹⣷⣤⣤⣿⣇⠀⠀⠀⠀⠀⠀⠻⣦⠀⠀⠀⠀⣿⡟"
+			@echo "⠀⠀⠀⠀⠀⠀⠀⣼⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣶⣾⣿⣿⡄⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⢻⣦⠀⠀⣸⣿⠁"
+			@echo "⠀⠀⠀⠀⠀⠀⢸⣿⢁⣠⡴⠿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⢿⣿⣿⢿⡇⠀⠀⠀⠀⠀⢹⡝⠛⠋⢸⡇⠀⠀⢀⣀⣀⣀⠀⢿⡆⢠⣿⠃⠀"
+			@echo "⠀⠀⠀⠀⠀⣠⣿⡿⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡆⠀⠀⢸⡇⠀⠀⠀⠀⠀⠈⢿⡀⠀⢸⡇⢀⣴⣿⣿⣿⣿⡇⠘⣷⣿⠃⠀⠀"
+			@echo "⠀⠀⠀⢠⣾⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣶⣶⣶⣦⣄⠀⠀⢳⣄⠀⣼⠃⠀⠀⠀⠀⠀⠀⠈⠛⠒⠚⠀⠘⠿⣿⠿⠟⠋⠀⠀⢻⣇⠀⠀⠀"
+			@echo "⠀⠀⣰⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠉⠋⠁⠀⠰⣦⣀⣀⣠⣾⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀"
+			@echo "⠀⣸⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠙⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀"
+			@echo "⢀⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀"
+			@echo "⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣶⡿⠿⠟⠛⠛⠻⠿⣶⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀"
+			@echo "⢸⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⠾⠛⠉⣵⣾⣿⠿⠟⠀⠀⠀⠀⠀⠈⠙⢷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡟⠀⠀⠀"
+			@echo "⠀⢿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡇⠀⠀⠀"
+			@echo "⠀⠈⠻⣷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⠄⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡟⠀⠀⠀⠀"
+
+.PHONY: all clean fclean re

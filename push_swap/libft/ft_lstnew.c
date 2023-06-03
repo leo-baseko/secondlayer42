@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 15:10:44 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/11/14 08:07:17 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/11/10 13:30:23 by ldrieske          #+#    #+#             */
+/*   Updated: 2023/06/01 15:29:31 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
- * ft_lstadd_front
+ * ft_lstnew 
  * 
- * t_list **lst : the address of a pointer to the first link of a list
- * t_list *new : the address of a pointer to the node to be added to the list
+ * void *content : the content to create the node with
  * 
- * Adds the node new in parameter at the beginning of the list
+ * Allocates and returns a new node
+ * The member variable content is initialized with the value
+ * of the parameter content 
+ * The variable next is initialized to NULL
 */
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+t_list	*ft_lstnew(void *content)
 {
-	t_list	*temp;
+	t_list	*newlist;
 
-	if (!lst || !new)
-		return ;
-	if (!*lst)
-		*lst = new;
-	else if (*lst && new)
-	{
-		temp = *lst;
-		new->next = temp;
-		*lst = new;
-	}
+	newlist = malloc(sizeof(t_list));
+	if (!newlist)
+		return (0);
+	newlist->content = content;
+	newlist->next = NULL;
+	return (newlist);
 }

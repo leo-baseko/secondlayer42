@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 13:30:23 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/11/17 12:27:57 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/11/14 08:11:36 by ldrieske          #+#    #+#             */
+/*   Updated: 2023/06/01 15:29:41 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
- * ft_lstnew 
+ * ft_lstlast
  * 
- * void *content : the content to create the node with
+ * t_list *lst : the list
  * 
- * Allocates and returns a new node
- * The member variable content is initialized with the value
- * of the parameter content 
- * The variable next is initialized to NULL
+ * Returns le last element of the list
 */
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*newlist;
-
-	newlist = malloc(sizeof(t_list));
-	if (!newlist)
+	if (!lst)
 		return (0);
-	newlist->content = content;
-	newlist->next = NULL;
-	return (newlist);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

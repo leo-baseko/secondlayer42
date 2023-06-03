@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 08:11:36 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/11/14 15:33:01 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/11/14 08:13:30 by ldrieske          #+#    #+#             */
+/*   Updated: 2023/06/01 15:29:56 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
- * ft_lstlast
+ * ft_lstadd_back
  * 
- * t_list *lst : the list
+ * t_list **lst : the address of a pointer to the first link of a list
+ * t_list *new : the address of a pointer to the node to be added to the list
  * 
- * Returns le last element of the list
+ * Adds the node new in parameter at the end of the list
 */
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	if (!lst)
-		return (0);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	t_list	*temp;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		temp = *lst;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new;
+	}
 }

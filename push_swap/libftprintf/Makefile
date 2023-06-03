@@ -31,4 +31,4 @@ re :			fclean all
 .c.o:			$(SRCS)
 					$(CC) -c -o $@ $< $(FLAGS)
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
