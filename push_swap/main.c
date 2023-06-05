@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:38:07 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/03 23:19:32 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:21:23 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,18 @@ int	isempty(t_stacknode *root)
 void	push(t_stacknode **root, int data)
 {
 	struct s_stacknode	*stacknode;
+	struct s_stacknode	*current;
 
 	stacknode = newnode(data);
-	stacknode->next = *root;
-	*root = stacknode;
+	if (*root == NULL)
+		*root = stacknode;
+	else
+	{
+		current = *root;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = stacknode;
+	}
 	printf("%d pushed to stack\n", data);
 }
 
@@ -123,31 +131,62 @@ void	printstackdata(const t_stacknode *stack)
 	ft_printf("\n");
 }
 
-int	main(void)
+/*
+ * checknononsense (pas de foutaises) 
+ * 
+ * check if theres doubles and non numerical values
+ * Returns 1 if everything is good
+ * Returns 0 if u fucked up
+*/
+static int checknononsense(char **av, int j)
 {
+	int	i;
+
+	i = 1;
+	if (av[1] == NULL)
+		return (0);
+	while (i < j)
+	{
+		if (!ft_atoi(av[i++]))
+			return (0);
+	}
+	return (1);
+}
+
+int	main(int ac, char **av)
+{
+	int			i;
+	int			j;
 	t_stacknode	*stack;
 
 	stack = NULL;
-	push(&stack, 1);
-	push(&stack, 2);
-	push(&stack, 3);
-	push(&stack, 4);
-	push(&stack, 5);
-	push(&stack, 6);
-	// Lire les données de la liste chaînée
-	ft_printf("Données de la liste chainée : ");
-	printstackdata(stack);
-	swap(&stack);
+	i = 0;
+	j = ac - 1;
+	ft_printf("arguments : %d\n", ac);
+	av++;
+	if (!checknononsense(av, j))
+	{
+		ft_printf("Error\n");
+		return (0);
+	}
+	while(i < j)
+	{
+		push(&stack, ft_atoi(*av));
+		av++;
+		i++;
+	}
+	ft_printf("Données de la liste chainée : \n");
 	printstackdata(stack);
 	rotate(&stack);
-	printstackdata(stack);
-	rotate(&stack);
-	printstackdata(stack);
-	swap(&stack);
 	printstackdata(stack);
 	reverse_rotate(&stack);
 	printstackdata(stack);
-	// Libérer la mémoire allouée pour la liste chaînée
+	rotate(&stack);
+	printstackdata(stack);
+	swap(&stack);
+	printstackdata(stack);
+	swap(&stack);
+	printstackdata(stack);
 	freestack(&stack);
 	return (0);
 }

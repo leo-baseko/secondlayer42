@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 23:01:02 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/03 23:25:40 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:39:00 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	swap(t_stacknode **stack)
 	t_stacknode	*secondnode;
 
 	if ((*stack) == NULL || (*stack)->next == NULL)
-		return;//Pas assez d'éléments dans la pile pour effectuer un échange
+		return ;
 	firstnode = (*stack);
 	secondnode = (*stack)->next;
 	firstnode->next = secondnode->next;
@@ -37,22 +37,15 @@ void	swap(t_stacknode **stack)
 void	rotate(t_stacknode **stack)
 {
 	t_stacknode	*lastnode;
-	t_stacknode	*secondlastnode;
 
-	if (*stack == NULL || (*stack)->next == NULL)
-		return;  // La pile est vide ou a un seul élément, pas besoin de décaler
-	// Trouver le dernier et l'avant-dernier nœud de la pile
 	lastnode = *stack;
-	secondlastnode = NULL;
+	if (*stack == NULL || (*stack)->next == NULL)
+		return ;
 	while (lastnode->next != NULL)
-	{
-		secondlastnode = lastnode;
 		lastnode = lastnode->next;
-	}
-	// Décaler les nœuds vers le haut
 	lastnode->next = *stack;
-	secondlastnode->next = NULL;
-	*stack = lastnode;
+	*stack = (*stack)->next;
+	lastnode->next->next = NULL;
 	ft_printf("ra\n");
 }
 
@@ -62,16 +55,14 @@ void	reverse_rotate(t_stacknode **stack)
 	t_stacknode	*prevnode;
 
 	if (*stack == NULL || (*stack)->next == NULL)
-		return;  // La pile est vide ou a un seul élément, pas besoin de décaler
+		return ;
 	lastnode = *stack;
 	prevnode = NULL;
-	// Trouver le dernier nœud de la pile
-	while (lastnode->next != NULL) 
+	while (lastnode->next != NULL)
 	{
 		prevnode = lastnode;
 		lastnode = lastnode->next;
 	}
-	// Décaler les nœuds vers le bas
 	lastnode->next = *stack;
 	*stack = lastnode;
 	prevnode->next = NULL;
