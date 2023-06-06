@@ -1,7 +1,10 @@
 NAME = 		push_swap
 
 SRC = 		main.c \
-			operations/swap_rotate_reverse.c
+			operations/swap_rotate_reverse.c \
+			operations/list_utils.c \
+			operations/push.c \
+			turkishtrick/mechanicalturk.c
 
 OBJ = 		${SRC:.c=.o}
 

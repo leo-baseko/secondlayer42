@@ -6,130 +6,11 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:38:07 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/05 18:21:23 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:54:55 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-/*
- * newnode 
- * 
- * int data :
- * return 
-*/
-struct s_stacknode	*newnode(int data)
-{
-	struct s_stacknode	*stacknode;
-
-	stacknode = malloc(sizeof(struct s_stacknode));
-	stacknode->data = data;
-	stacknode->next = NULL;
-	return (stacknode);
-}
-
-/*
- * isempty
- * 
- * StackNode *root : 
-*/
-int	isempty(t_stacknode *root)
-{
-	return (!root);
-}
-
-/*
- * push
- * 
- * StackNode **root : 
- * int data : 
-*/
-void	push(t_stacknode **root, int data)
-{
-	struct s_stacknode	*stacknode;
-	struct s_stacknode	*current;
-
-	stacknode = newnode(data);
-	if (*root == NULL)
-		*root = stacknode;
-	else
-	{
-		current = *root;
-		while (current->next != NULL)
-			current = current->next;
-		current->next = stacknode;
-	}
-	printf("%d pushed to stack\n", data);
-}
-
-/*
- * pop
- * 
- * StackNode **root : 
-*/
-int	pop(t_stacknode **root)
-{
-	struct s_stacknode	*temp;
-	int					popped;
-
-	if (isempty(*root))
-		return (INT_MIN);
-	temp = *root;
-	*root = (*root)->next;
-	popped = temp->data;
-	free(temp);
-	return (popped);
-}
-
-/*
- * peek
- * 
- * StackNode *root : 
-*/
-int	peek(t_stacknode *root)
-{
-	if (isempty(root))
-		return (INT_MIN);
-	return (root->data);
-}
-
-/*
- * freestack
- * 
- * StackNode **stack :
-*/
-void	freestack(t_stacknode **stack)
-{
-	t_stacknode	*currentnode;
-	t_stacknode	*nextnode;
-
-	currentnode = *stack;
-	while (currentnode != NULL)
-	{
-		nextnode = currentnode->next;
-		free(currentnode);
-		currentnode = nextnode;
-	}
-	*stack = NULL;
-}
-
-/*
- * printstackdata
- * 
- * StackNode *stack : 
-*/
-void	printstackdata(const t_stacknode *stack)
-{
-	const t_stacknode	*currentnode;
-
-	currentnode = stack;
-	while (currentnode != NULL)
-	{
-		ft_printf("%d ", currentnode->data);
-		currentnode = currentnode->next;
-	}
-	ft_printf("\n");
-}
 
 /*
  * checknononsense (pas de foutaises) 
@@ -138,17 +19,20 @@ void	printstackdata(const t_stacknode *stack)
  * Returns 1 if everything is good
  * Returns 0 if u fucked up
 */
-static int checknononsense(char **av, int j)
+static int	checknononsense(char **av)
 {
 	int	i;
+	int	value;
 
 	i = 1;
-	if (av[1] == NULL)
+	if (!av[1])
 		return (0);
-	while (i < j)
+	value = ft_atoi(av[i]);
+	while (av[i])
 	{
-		if (!ft_atoi(av[i++]))
+		if (!value || value >= 10 || value <= -10)
 			return (0);
+		value = ft_atoi(av[i++]);
 	}
 	return (1);
 }
@@ -158,25 +42,30 @@ int	main(int ac, char **av)
 	int			i;
 	int			j;
 	t_stacknode	*stack;
+	t_stacknode	*stackb;
 
 	stack = NULL;
+	stackb = NULL;
 	i = 0;
 	j = ac - 1;
 	ft_printf("arguments : %d\n", ac);
-	av++;
-	if (!checknononsense(av, j))
+	if (checknononsense(++av) == 0 || ac == 2)
 	{
-		ft_printf("Error\n");
+		//Don't forget, errors must be in the error standard !
+		write(2, "Error\n", 7);
 		return (0);
 	}
-	while(i < j)
+	while (i < j)
 	{
 		push(&stack, ft_atoi(*av));
 		av++;
 		i++;
 	}
-	ft_printf("Données de la liste chainée : \n");
+	ft_printf("Stack A : \n");
 	printstackdata(stack);
+	ft_printf("premiere action : ");
+	firstaction(&stack, &stackb);
+	printstackdata(stackb);
 	rotate(&stack);
 	printstackdata(stack);
 	reverse_rotate(&stack);
