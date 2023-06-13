@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_rotate_reverse.c                              :+:      :+:    :+:   */
+/*   swap_rotate_reverse_b.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 23:01:02 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/14 00:16:34 by ldrieske         ###   ########.fr       */
+/*   Created: 2023/06/10 18:32:22 by ldrieske          #+#    #+#             */
+/*   Updated: 2023/06/13 22:12:51 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
 /*
- * swap
+ * swap_b
  *
- * t_stacknode **stack : stack a or b
- * 
- * swap les deux premiers elements de la stack a
- * ne fait rien si stack est vide 
+ * t_stacknode **stack : stack b
+ * swap the first 2 elements of the b stack
+ * do nothing if the stack is empty or don't have enough elements to swap
 */
-void	swap(t_stacknode **stack)
+void	swap_b(t_stacknode **stack)
 {
 	t_stacknode	*firstnode;
 	t_stacknode	*secondnode;
@@ -32,10 +31,10 @@ void	swap(t_stacknode **stack)
 	firstnode->next = secondnode->next;
 	secondnode->next = firstnode;
 	(*stack) = secondnode;
-	ft_printf("sa\n");
+	ft_printf("sb\n");
 }
 
-void	rotate(t_stacknode **stack)
+void	rotate_b(t_stacknode **stack)
 {
 	t_stacknode	*lastnode;
 
@@ -47,10 +46,10 @@ void	rotate(t_stacknode **stack)
 	lastnode->next = *stack;
 	*stack = (*stack)->next;
 	lastnode->next->next = NULL;
-	ft_printf("ra\n");
+	ft_printf("rb\n");
 }
 
-void	reverse_rotate(t_stacknode **stack)
+void	reverse_rotate_b(t_stacknode **stack)
 {
 	t_stacknode	*lastnode;
 	t_stacknode	*prevnode;
@@ -67,5 +66,5 @@ void	reverse_rotate(t_stacknode **stack)
 	lastnode->next = *stack;
 	*stack = lastnode;
 	prevnode->next = NULL;
-	ft_printf("rra\n");
+	ft_printf("rrb\n");
 }

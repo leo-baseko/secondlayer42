@@ -6,11 +6,19 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:38:07 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/06 20:54:55 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:32:08 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+
+static void	ohnoerror()
+{
+	write(2, "Error\n", 6);
+	exit(0);
+}
+
 
 /*
  * checknononsense (pas de foutaises) 
@@ -30,7 +38,7 @@ static int	checknononsense(char **av)
 	value = ft_atoi(av[i]);
 	while (av[i])
 	{
-		if (!value || value >= 10 || value <= -10)
+		if (value >= 2147483647 || value <= -2147483648)
 			return (0);
 		value = ft_atoi(av[i++]);
 	}
@@ -50,11 +58,7 @@ int	main(int ac, char **av)
 	j = ac - 1;
 	ft_printf("arguments : %d\n", ac);
 	if (checknononsense(++av) == 0 || ac == 2)
-	{
-		//Don't forget, errors must be in the error standard !
-		write(2, "Error\n", 7);
-		return (0);
-	}
+		ohnoerror();
 	while (i < j)
 	{
 		push(&stack, ft_atoi(*av));
@@ -63,19 +67,27 @@ int	main(int ac, char **av)
 	}
 	ft_printf("Stack A : \n");
 	printstackdata(stack);
-	ft_printf("premiere action : ");
+	ft_printf("premiere action : \n");
 	firstaction(&stack, &stackb);
 	printstackdata(stackb);
-	rotate(&stack);
+
+	ft_printf("Seconde action : \n");
+	secondaction(&stack, &stackb);
+	ft_printf("Stack A : \n");
 	printstackdata(stack);
-	reverse_rotate(&stack);
-	printstackdata(stack);
-	rotate(&stack);
-	printstackdata(stack);
-	swap(&stack);
-	printstackdata(stack);
-	swap(&stack);
-	printstackdata(stack);
+	ft_printf("\nStack B : \n");
+	printstackdata(stackb);
+	// rotate(&stack);
+	// printstackdata(stack);
+	// reverse_rotate(&stack);
+	// printstackdata(stack);
+	// rotate(&stack);
+	// printstackdata(stack);
+	// swap(&stack);
+	// printstackdata(stack);
+	// swap(&stack);
+	// printstackdata(stack);
 	freestack(&stack);
+	freestack(&stackb);
 	return (0);
 }

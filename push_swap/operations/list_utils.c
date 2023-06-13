@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:29:16 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/06 15:29:51 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:16:24 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,38 +59,6 @@ void	push(t_stacknode **root, int data)
 			current = current->next;
 		current->next = stacknode;
 	}
-	printf("%d pushed to stack\n", data);
-}
-
-/*
- * pop
- * 
- * StackNode **root : 
-*/
-int	pop(t_stacknode **root)
-{
-	struct s_stacknode	*temp;
-	int					popped;
-
-	if (isempty(*root))
-		return (INT_MIN);
-	temp = *root;
-	*root = (*root)->next;
-	popped = temp->data;
-	free(temp);
-	return (popped);
-}
-
-/*
- * peek
- * 
- * StackNode *root : 
-*/
-int	peek(t_stacknode *root)
-{
-	if (isempty(root))
-		return (INT_MIN);
-	return (root->data);
 }
 
 /*
