@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:29:31 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/14 00:08:20 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:36:27 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_apply_rrarb(t_stacknode **a, t_stacknode **b, int c, char s)
 		while ((*a)->data != c)
 			reverse_rotate(a);
 		while (ft_find_place_b(*b, c) > 0)
-			reverse_rotate_b(b);
+			rotate_b(b);
 		push_b(a, b);
 	}
 	else
@@ -74,7 +74,7 @@ int	ft_apply_rrarb(t_stacknode **a, t_stacknode **b, int c, char s)
 		while (ft_find_place_a(*a, c) > 0)
 			reverse_rotate(a);
 		while ((*b)->data != c)
-			reverse_rotate_b(b);
+			rotate_b(b);
 		push_a(a, b);
 	}
 	return (-1);

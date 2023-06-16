@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:29:28 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/13 23:51:32 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:20:40 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_find_place_b(t_stacknode *stack_b, int nbr_push)
 	else
 	{
 		tmp = stack_b->next;
-		while (stack_b->data < nbr_push || tmp->data > nbr_push)
+		while (tmp->data > nbr_push || stack_b->data < nbr_push)
 		{
 			stack_b = stack_b->next;
 			tmp = stack_b->next;
@@ -57,6 +57,8 @@ int	ft_find_place_a(t_stacknode *stack_a, int nbr_push)
 	t_stacknode	*tmp;
 
 	i = 1;
+	if (stack_a == NULL || lstlast(stack_a) == NULL)
+		return (0);
 	if (nbr_push < stack_a->data && nbr_push > lstlast(stack_a)->data)
 		i = 0;
 	else if (nbr_push > ft_max(stack_a) || nbr_push < ft_min(stack_a))
@@ -64,7 +66,8 @@ int	ft_find_place_a(t_stacknode *stack_a, int nbr_push)
 	else
 	{
 		tmp = stack_a->next;
-		while (stack_a->data > nbr_push || tmp->data < nbr_push)
+		while (stack_a->data > nbr_push
+			|| (tmp != NULL && tmp->data < nbr_push))
 		{
 			stack_a = stack_a->next;
 			tmp = stack_a->next;

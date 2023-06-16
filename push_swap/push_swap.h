@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 19:59:42 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/13 13:37:58 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:11:42 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@
 
 typedef struct s_stacknode {
 	long				data;
-	int					index;
+	long				index;
 	struct s_stacknode	*next;
 	struct s_stacknode	*prev;
-	struct s_stacknode	*top;
 }	t_stacknode;
 
 void				push_a(t_stacknode **stack_a, t_stacknode **stack_b);
@@ -49,6 +48,10 @@ void				freestack(t_stacknode **stack);
 void				printstackdata(const t_stacknode *stack);
 void				firstaction(t_stacknode **stack_a, t_stacknode **stack_b);
 void				secondaction(t_stacknode **stack_a, t_stacknode **stack_b);
+void				thirdaction(t_stacknode **stack_a);
+void				fourthaction(t_stacknode **stack_a, t_stacknode **stack_b);
+void				finalaction(t_stacknode **stack_a);
+
 int					ft_rotate_type_ba(t_stacknode *a, t_stacknode *b);
 int					ft_rotate_type_ab(t_stacknode *a, t_stacknode *b);
 int					ft_case_rarb(t_stacknode *a, t_stacknode *b, int c);

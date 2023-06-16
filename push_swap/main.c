@@ -6,19 +6,17 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:38:07 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/14 00:32:08 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:08:54 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-static void	ohnoerror()
+static void	ohnoerror(void)
 {
 	write(2, "Error\n", 6);
 	exit(0);
 }
-
 
 /*
  * checknononsense (pas de foutaises) 
@@ -56,7 +54,7 @@ int	main(int ac, char **av)
 	stackb = NULL;
 	i = 0;
 	j = ac - 1;
-	ft_printf("arguments : %d\n", ac);
+	// ft_printf("arguments : %d\n", ac);
 	if (checknononsense(++av) == 0 || ac == 2)
 		ohnoerror();
 	while (i < j)
@@ -65,28 +63,40 @@ int	main(int ac, char **av)
 		av++;
 		i++;
 	}
-	ft_printf("Stack A : \n");
-	printstackdata(stack);
-	ft_printf("premiere action : \n");
+	// ft_printf("Stack A : \n");
+	// printstackdata(stack);
+	// ft_printf("premiere action : \n");
 	firstaction(&stack, &stackb);
-	printstackdata(stackb);
+	// printstackdata(stackb);
 
-	ft_printf("Seconde action : \n");
+	// ft_printf("seconde action : \n");
 	secondaction(&stack, &stackb);
-	ft_printf("Stack A : \n");
-	printstackdata(stack);
-	ft_printf("\nStack B : \n");
-	printstackdata(stackb);
-	// rotate(&stack);
+	// ft_printf("Stack A : \n");
 	// printstackdata(stack);
-	// reverse_rotate(&stack);
+	// ft_printf("\nStack B : \n");
+	// printstackdata(stackb);
+
+	// ft_printf("troisieme action : \n");
+	thirdaction(&stack);
+	// ft_printf("Stack A : \n");
 	// printstackdata(stack);
-	// rotate(&stack);
+	// ft_printf("\nStack B : \n");
+	// printstackdata(stackb);
+	
+	// ft_printf("quatrieme action : \n");
+	fourthaction(&stack, &stackb);
+	// ft_printf("Stack A : \n");
 	// printstackdata(stack);
-	// swap(&stack);
+	// ft_printf("\nStack B : \n");
+	// printstackdata(stackb);
+	
+	// ft_printf("cinquieme action : \n");
+	finalaction(&stack);
+	// ft_printf("Stack A : \n");
 	// printstackdata(stack);
-	// swap(&stack);
-	// printstackdata(stack);
+	// ft_printf("\nStack B : \n");
+	// printstackdata(stackb);
+	
 	freestack(&stack);
 	freestack(&stackb);
 	return (0);
