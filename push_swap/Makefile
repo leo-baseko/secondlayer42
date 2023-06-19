@@ -1,6 +1,8 @@
 NAME = 		push_swap
 
 SRC = 		main.c \
+			error.c \
+			operations/hardcodehenry.c \
 			operations/swap_rotate_reverse.c \
 			operations/swap_rotate_reverse_b.c \
 			operations/list_utils.c \
@@ -18,7 +20,7 @@ OBJ = 		${SRC:.c=.o}
 
 CC = 		gcc
 
-CFLAGS = 	-Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = 	-Wall -Wextra -Werror #-fsanitize=address -g
 
 LIB = 		libft/libft.a \
 			libftprintf/libftprintf.a

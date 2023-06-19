@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 19:59:42 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/16 23:11:42 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:41:31 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include "./libftprintf/ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
-# include <stdio.h>
 # include <stdarg.h>
 
 typedef struct s_stacknode {
@@ -40,17 +38,20 @@ void				double_rotate(t_stacknode **stack_a, t_stacknode **stack_b);
 void				double_reverse_rotate(
 						t_stacknode **stack_a, t_stacknode **stack_b);
 struct s_stacknode	*newnode(int data);
-int					isempty(t_stacknode *root);
 void				push(t_stacknode **root, int data);
-int					pop(t_stacknode **root);
-int					peek(t_stacknode *root);
 void				freestack(t_stacknode **stack);
-void				printstackdata(const t_stacknode *stack);
+
+void				ohnoerror(t_stacknode **stack_a, t_stacknode **stack_b);
+int					checknononsense(char **av);
+int					is_valnum(char *str);
+
 void				firstaction(t_stacknode **stack_a, t_stacknode **stack_b);
 void				secondaction(t_stacknode **stack_a, t_stacknode **stack_b);
 void				thirdaction(t_stacknode **stack_a);
 void				fourthaction(t_stacknode **stack_a, t_stacknode **stack_b);
 void				finalaction(t_stacknode **stack_a);
+void				hardcodehenry(
+						int ac, t_stacknode **stack_a, t_stacknode **stack_b);
 
 int					ft_rotate_type_ba(t_stacknode *a, t_stacknode *b);
 int					ft_rotate_type_ab(t_stacknode *a, t_stacknode *b);

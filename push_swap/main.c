@@ -6,41 +6,47 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:38:07 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/16 23:08:54 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:38:16 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ohnoerror(void)
+static void	mechanicalturk(t_stacknode **stack_a, t_stacknode **stack_b)
 {
-	write(2, "Error\n", 6);
-	exit(0);
+	firstaction(stack_a, stack_b);
+	secondaction(stack_a, stack_b);
+	thirdaction(stack_a);
+	fourthaction(stack_a, stack_b);
+	finalaction(stack_a);
 }
 
-/*
- * checknononsense (pas de foutaises) 
- * 
- * check if theres doubles and non numerical values
- * Returns 1 if everything is good
- * Returns 0 if u fucked up
-*/
-static int	checknononsense(char **av)
+static int	doubles_av(char **strings, int size)
 {
 	int	i;
-	int	value;
+	int	j;
+	int	k;
+	int	duplicates;
 
-	i = 1;
-	if (!av[1])
-		return (0);
-	value = ft_atoi(av[i]);
-	while (av[i])
+	i = 0;
+	j = 0;
+	duplicates = 0;
+	while (i < size - 1 && !duplicates)
 	{
-		if (value >= 2147483647 || value <= -2147483648)
-			return (0);
-		value = ft_atoi(av[i++]);
+		j = i + 1;
+		while (j < size && !duplicates)
+		{
+			k = 0;
+			while (strings[i][k] != '\0' && strings[j][k] != '\0'
+				&& strings[i][k] == strings[j][k])
+				k++;
+			if (strings[i][k] == strings[j][k])
+				duplicates = 1;
+			j++;
+		}
+		i++;
 	}
-	return (1);
+	return (duplicates);
 }
 
 int	main(int ac, char **av)
@@ -54,49 +60,19 @@ int	main(int ac, char **av)
 	stackb = NULL;
 	i = 0;
 	j = ac - 1;
-	// ft_printf("arguments : %d\n", ac);
-	if (checknononsense(++av) == 0 || ac == 2)
-		ohnoerror();
-	while (i < j)
-	{
-		push(&stack, ft_atoi(*av));
-		av++;
-		i++;
-	}
-	// ft_printf("Stack A : \n");
-	// printstackdata(stack);
-	// ft_printf("premiere action : \n");
-	firstaction(&stack, &stackb);
-	// printstackdata(stackb);
-
-	// ft_printf("seconde action : \n");
-	secondaction(&stack, &stackb);
-	// ft_printf("Stack A : \n");
-	// printstackdata(stack);
-	// ft_printf("\nStack B : \n");
-	// printstackdata(stackb);
-
-	// ft_printf("troisieme action : \n");
-	thirdaction(&stack);
-	// ft_printf("Stack A : \n");
-	// printstackdata(stack);
-	// ft_printf("\nStack B : \n");
-	// printstackdata(stackb);
-	
-	// ft_printf("quatrieme action : \n");
-	fourthaction(&stack, &stackb);
-	// ft_printf("Stack A : \n");
-	// printstackdata(stack);
-	// ft_printf("\nStack B : \n");
-	// printstackdata(stackb);
-	
-	// ft_printf("cinquieme action : \n");
-	finalaction(&stack);
-	// ft_printf("Stack A : \n");
-	// printstackdata(stack);
-	// ft_printf("\nStack B : \n");
-	// printstackdata(stackb);
-	
+	if (j == 1 && is_valnum(av[1]))
+		return (0);
+	if (checknononsense(++av) == 0 || j < 2
+		|| checknononsense(av) == -1 || doubles_av(av, j) > 0)
+		ohnoerror(&stack, &stackb);
+	while (i++ < j)
+		push(&stack, ft_atoi(*av++));
+	if (ft_checksorted(stack))
+		return (0);
+	if (j >= 5)
+		mechanicalturk(&stack, &stackb);
+	else
+		hardcodehenry(j, &stack, &stackb);
 	freestack(&stack);
 	freestack(&stackb);
 	return (0);

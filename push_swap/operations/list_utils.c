@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:29:16 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/13 22:16:24 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:40:29 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ struct s_stacknode	*newnode(int data)
 	stacknode->data = data;
 	stacknode->next = NULL;
 	return (stacknode);
-}
-
-/*
- * isempty
- * 
- * StackNode *root : 
-*/
-int	isempty(t_stacknode *root)
-{
-	return (!root);
 }
 
 /*
@@ -79,22 +69,4 @@ void	freestack(t_stacknode **stack)
 		currentnode = nextnode;
 	}
 	*stack = NULL;
-}
-
-/*
- * printstackdata
- * 
- * StackNode *stack : 
-*/
-void	printstackdata(const t_stacknode *stack)
-{
-	const t_stacknode	*currentnode;
-
-	currentnode = stack;
-	while (currentnode != NULL)
-	{
-		ft_printf("%d ", currentnode->data);
-		currentnode = currentnode->next;
-	}
-	ft_printf("\n");
 }

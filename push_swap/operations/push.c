@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 17:14:49 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/16 23:03:02 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:54:07 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	push_a(t_stacknode **stack_a, t_stacknode **stack_b)
 
 	if (!*stack_b)
 		return ;
-	tmp = *stack_a;
-	*stack_a = *stack_b;
+	tmp = *stack_b;
 	*stack_b = (*stack_b)->next;
-	(*stack_a)->next = tmp;
+	tmp->next = *stack_a;
+	*stack_a = tmp;
 	ft_printf("pa\n");
 }
 
