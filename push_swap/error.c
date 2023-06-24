@@ -6,35 +6,11 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:29:58 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/06/19 16:28:40 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:22:54 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	free_stack(t_stacknode *stack)
-{
-	t_stacknode	*current;
-	t_stacknode	*next;
-
-	current = stack;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-}
-
-void	ohnoerror(t_stacknode **stack_a, t_stacknode **stack_b)
-{
-	if (stack_a)
-		free_stack(*stack_a);
-	if (stack_b)
-		free_stack(*stack_b);
-	write(2, "Error\n", 6);
-	exit(0);
-}
 
 static int	is_only_digits(char c)
 {
@@ -45,17 +21,37 @@ static int	is_only_digits(char c)
 	return (0);
 }
 
-/*
- * 
- * 
-*/
+static long	ft_atoi_push_swap(const char *str)
+{
+	int			i;
+	int			n;
+	long int	res;
+
+	i = 0;
+	res = 0;
+	n = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || (str[i] == 32))
+		i++;
+	if (str[i] == '-')
+		n *= -1;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + str[i++] - '0';
+		if ((res > 2147483647 && n == 1) || res > 2147483648)
+			return (2147483648);
+	}
+	return (n * (int)res);
+}
+
 int	is_valnum(char *str)
 {
 	int		i;
 	long	num;
 
 	i = 0;
-	num = ft_atoi(str);
+	num = ft_atoi_push_swap(str);
 	if (str[0] == '-')
 		i = 1;
 	if (str[i] == '\0')
@@ -68,34 +64,27 @@ int	is_valnum(char *str)
 	}
 	if (i == 1 && str[0] == '-')
 		return (0);
-	if (num < -2147483648 || num > 2147483647)
+	if (num == 2147483648)
 		return (0);
 	return (1);
 }
 
-/*
- * checknononsense (pas de foutaises) 
- * 
- * check if non numerical values
- * Returns 1 if everything is good
- * Returns 0 if u fucked up
-*/
 int	checknononsense(char **av)
 {
-	int	i;
-	int	value;
+	int		i;
+	long	value;
 
 	i = 0;
 	while (av[i])
 		if (!is_valnum(av[i++]))
 			return (0);
 	i = 1;
-	value = ft_atoi(av[i]);
+	value = ft_atoi_push_swap(av[i]);
 	while (av[i])
 	{
-		if (value >= 2147483647 || value <= -2147483648)
+		if (value == 2147483648)
 			return (0);
-		value = ft_atoi(av[i++]);
+		value = ft_atoi_push_swap(av[i++]);
 	}
 	return (1);
 }

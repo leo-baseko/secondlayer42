@@ -1,21 +1,7 @@
-NAME = 		push_swap
+NAME = 		minitalk
 
-SRC = 		main.c \
-			error.c \
-			error2.c \
-			operations/hardcodehenry.c \
-			operations/swap_rotate_reverse.c \
-			operations/swap_rotate_reverse_b.c \
-			operations/list_utils.c \
-			operations/push.c \
-			operations/double_rotate.c \
-			turkishtrick/mechanicalturk.c \
-			turkishtrick/mechanicalturk_utils.c \
-			turkishtrick/mechanicalturk_utils2.c \
-			turkishtrick/mechanicalturk_utils3.c \
-			turkishtrick/mechanicalturk_utils4.c \
-			turkishtrick/mechanicalturk_utils5.c
-
+SRC = 		talkie-client.c \
+			talkie-server.c
 
 OBJ = 		${SRC:.c=.o}
 
