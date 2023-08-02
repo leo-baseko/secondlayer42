@@ -9,16 +9,13 @@ CC = 		gcc
 
 CFLAGS = 	-Wall -Wextra -Werror #-fsanitize=address -g
 
-LIB = 		libft/libft.a \
-			libftprintf/libftprintf.a
-
 REMOVE = 	rm -f
 
-COMPILE = 	gcc $(CFLAGS) -o $(NAME) -I ./libft -L. $(LIB)
+COMPILE = 	gcc $(CFLAGS) -o $(NAME)
 
 
 all:		$(NAME)
-			@echo "						\033[95mi hate this project"
+			@echo "						\033[95mminitalk is pretty fun"
 			@echo ""
 			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣴⣶⣶⣶⣶⣶⣶⣶⣶⣶⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
 			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⡾⠿⠛⠋⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠿⢷⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
@@ -41,22 +38,16 @@ all:		$(NAME)
 			@echo "⠀⠈⠻⣷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⠄⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡟⠀⠀⠀⠀\033[0m"
 
 $(NAME): 	$(OBJ)
-			make -C libft
-			make -C libftprintf
-			@$(COMPILE) $(OBJ) -L. $(LIB)
+			@$(COMPILE) $(OBJ)
 
 %.o: 		%.c
-			$(CC) -c $(CFLAGS) -I./libft -I./libftprintf -o $@ $<
+			$(CC) -c $(CFLAGS) -o $@ $<
 
 clean:
 			$(REMOVE) $(OBJ)
-			make -C ./libft clean
-			make -C ./libftprintf clean
 
 fclean: 	clean
 			$(REMOVE) $(NAME)
-			make -C ./libft fclean
-			make -C ./libftprintf fclean
 
 re: 		fclean all
 
