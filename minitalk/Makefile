@@ -1,9 +1,11 @@
-NAME = 		minitalk
+NAME = 		client
+NAME2 =		server
 
-SRC = 		talkie-client.c \
-			talkie-server.c
+SRC_C = 	talkie-client.c
+SRC_S =		talkie-server.c
 
-OBJ = 		${SRC:.c=.o}
+OBJ_C = 	${SRC_C:.c=.o}
+OBJ_S =		${SRC_S:.c=.o}
 
 CC = 		gcc
 
@@ -11,10 +13,7 @@ CFLAGS = 	-Wall -Wextra -Werror #-fsanitize=address -g
 
 REMOVE = 	rm -f
 
-COMPILE = 	gcc $(CFLAGS) -o $(NAME)
-
-
-all:		$(NAME)
+all:		$(NAME) $(NAME2)
 			@echo "						\033[95mminitalk is pretty fun"
 			@echo ""
 			@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣴⣶⣶⣶⣶⣶⣶⣶⣶⣶⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
@@ -37,17 +36,22 @@ all:		$(NAME)
 			@echo "⠀⢿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡇⠀⠀⠀"
 			@echo "⠀⠈⠻⣷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⠄⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡟⠀⠀⠀⠀\033[0m"
 
-$(NAME): 	$(OBJ)
-			@$(COMPILE) $(OBJ)
+$(NAME):	$(OBJ_C)
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJ_C)
+
+$(NAME2): 	$(OBJ_S)
+			$(CC) $(CFLAGS) -o $(NAME2) $(OBJ_S)
 
 %.o: 		%.c
 			$(CC) -c $(CFLAGS) -o $@ $<
 
 clean:
-			$(REMOVE) $(OBJ)
+			$(REMOVE) $(OBJ_C)
+			$(REMOVE) $(OBJ_S)
 
 fclean: 	clean
 			$(REMOVE) $(NAME)
+			$(REMOVE) $(NAME2)
 
 re: 		fclean all
 

@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   talkie-server.c                                    :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/23 14:45:01 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/08/02 21:31:13 by ldrieske         ###   ########.fr       */
+/*   Created: 2023/08/02 19:05:32 by ldrieske          #+#    #+#             */
+/*   Updated: 2023/08/02 19:06:25 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-int	main(void)
-{
-	printf("server : coucou\n");
-	return (0);
-}
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdarg.h>
+
+#endif
